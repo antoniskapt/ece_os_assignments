@@ -1,3 +1,12 @@
+# GNU Make
+#
+# 049 - Operating Systems
+# Quiz 5
+#
+# Kapetanios Antonios, 10417
+#
+# January 2024
+
 #!/bin/bash
 spawner() {
 
