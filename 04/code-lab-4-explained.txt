@@ -1,0 +1,117 @@
++ code-lab-4/example_kill.c
+	This program sends the signal `SIGUSR1` to itself. The signal is handled by `catcher`.
+	Catcher increments the global variable `sigcount` each time it's called keeping track
+	of how many times `SIGUSR1` is caught.
+	The `main` function takes one argument: an integer that determines the maximum number
+	of times that `SIGUSR1` will be sent through `sendsig`.
+	The `sendsig` function calls `kill` floor(count/10) times if `count` is a multiple of 10
+	or (floor(count/10)+1) otherwise.
+
+	EXAMPLE USAGE & OUTPUT:
+
+		$ ./example_kill 31
+		Back in main
+		The kill() function was called 4 times
+		The signal catching function was called 4 times
+
+		$ ./example_kill 40
+		Back in main
+		The kill() function was called 4 times
+		The signal catching function was called 4 times
+
++ code-lab-4/example_pause.c
+	This program handles the `SIGALRM` signal using the function `catcher`, which prints the
+	signal number that it just handled.
+	The program sends the `SIGALRM` signal through the `alarm` function after `t` seconds.
+	`t` is passed as an argument to the main function.
+	A time stamp is printed using the `time_stamp` function and the process pauses waiting
+	for a signal to arrive by calling `pause`. After the signal is received, a time stamp is
+	printed and the program terminates.
+
+	EXAMPLE USAGE & OUTPUT:
+
+	$ ./example_pause 3
+	The time before pause is Mon Dec 18 19:31:58 2023
+
+	Signal catcher called for signal 14
+	The time after pause is Mon Dec 18 19:32:01 2023
+
++ code-lab-4/example_sleep.c
+	This program handles the `SIGINT` signal using the `sighandler` function. `sighandler`
+	prints the signal it just caught and exits with status code 1.
+	The `main` program enters an infinite loop where it sleeps for one second giving the
+	user the chance to send an interrupt.
+
+	EXAMPLE USAGE & OUTPUT:
+
+	$ ./example_sleep
+	Going to sleep for a second...
+	Going to sleep for a second...
+	Going to sleep for a second...
+	^CCaught signal 2, coming out...
+
++ code-lab-4/immun2ctrlC.c
+	This program takes as input an integer, t, ignores the `SIGINT` signal and sleeps
+	for t seconds.
+
+	EXAMPLE USAGE & OUTPUT:
+
+	$ ./immun2ctrlC 3
+	sleeping for: 3 sec
+	^C^C^C^C
+
++ code-lab-4/pipe_1.c
+	This program takes as input the number of child processes it's going to create.
+	Using pipes, each child process writes a message on `pd[1]`. Once all processes
+	terminate, the parent process reads and prints all the messages to the standard
+	output from `pd[0]`.
+
+	EXAMPLE USAGE & OUTPUT:
+
+	$ ./pipe_1 5
+	Creating 5 children
+	FATHER: I receiνed from children:
+
+	Ηello from child  1 (pid=35891)
+	Ηello from child  2 (pid=35892)
+	Ηello from child  3 (pid=35893)
+	Ηello from child  5 (pid=35895)
+	Ηello from child  4 (pid=35894)
+
+	$ ./pipe_1 0
+	Creating 0 children
+	FATHER: I receiνed from children:
+
+
++ code-lab-4/pipe_2.c
+	This program creates a pipe, `pipe(fd)`, and a child process. The parent process
+	writes a message to the writing end of the pipe and then the child process receives
+	this message and prints it to the standard output.
+
+	EXAMPLE USAGE & OUTPUT:
+
+	$ ./pipe_2
+	message through pipe
+
++ code-lab-4/signal.c
+	This program takes as input arguments an integer, s, and the name of command/executable
+	that resides in one of the directories listed in the PATH environment variable.
+	The `SIGKILL` signal is handled by the function `onalarm`. The `main` program creates a
+	new process which executes the provided command. and after s seconds the parent process
+	sends a `SIGKILL` signal to the child process. If the child process hasn't finished yet
+	"Child process killed" gets printed to the standard output.
+
+	EXAMPLE USAGE & OUTPUT:
+
+	$ ./signal -5 ls
+	Executing: ls
+	example_kill     example_sleep.c  pipe_1.c
+	example_kill.c   immun2ctrlC      pipe_2
+	example_pause    immun2ctrlC.c    pipe_2.c
+	example_pause.c  Makefile         signal
+	example_sleep    pipe_1           signal.c
+
+	$ ./signal -2 sleep 3
+	Executing: sleep
+	Alarm resived: 14
+	Child process killed
