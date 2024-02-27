@@ -1,3 +1,12 @@
+/* vector/vector.c
+ *
+ * Kapetanios Antonios 10417
+ * January 2024
+ *
+ *
+ * 049 - OS
+ * hw assignment 5
+ */
 #include "vector.h"
 
 int vector_init(Vector* vec, int elemSize){
