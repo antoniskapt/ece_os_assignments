@@ -4,7 +4,7 @@
 #	December 2023
 #
 #	049 - OS
-#	hw assignment 2
+#	hw assignment 3
 CC = gcc
 CFLAGS = -std=gnu17 -O2
 OBJ = main.o c_proc.o sort.o
