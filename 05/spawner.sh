@@ -1,4 +1,4 @@
-# GNU Make
+# Bash script
 #
 # 049 - Operating Systems
 # Quiz 5
