@@ -4,7 +4,7 @@
 *	December 2023
 *
 *	049 - OS
-*	hw assignment 2
+*	hw assignment 3
 */
 #ifndef C_PROC_H
 #define C_PROC_H
